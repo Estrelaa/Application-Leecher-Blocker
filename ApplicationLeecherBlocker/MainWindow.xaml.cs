@@ -1,4 +1,6 @@
 ﻿using ApplicationLeacherBlocker.Processes;
+using ApplicationLeecherBlocker.Json_Parser;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -21,6 +23,7 @@ namespace ApplicationLeacherBlocker
         {
             InitializeComponent();
             Logging.LogToLoggingTextBoxInUI("Application started");
+            new Json_Serializer().SerializeJson();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -75,7 +78,7 @@ namespace ApplicationLeacherBlocker
             }
             else
             {
-                new ProcessHandler().DealWithProcesses();
+                new ProcessHandler().ScanAndKillBlockedProcesses();
 
                 if (stopWatch.Elapsed.TotalSeconds > TimeToRunInSeconds)
                 {
