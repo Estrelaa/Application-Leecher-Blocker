@@ -1,23 +1,43 @@
-﻿using ApplicationLeacherBlocker.ProcessesController;
+﻿using ApplicationLeacherBlocker.ListOfItemsToBlock;
+using ApplicationLeecherBlocker.Processes;
 using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace ApplicationLeacherBlocker.Processes
 {
-    class ProcessHandler
+    public class ProcessHandler : IProcessHandler
     {
-        public void DealWithProcesses()
+        public void ScanAndKillBlockedProcesses()
         {
-            ProcessScaner scaner = new ProcessScaner();
-            var ProcessesToBlock = ListOfItemsToBlock.ProcessesToBlock.Processes;
+            var ProcessesToBlock = GetListOfBlockedProcesses();
 
-            KillProcesses(scaner.FindBlockedProcesses(ProcessesToBlock));
+            KillBlockedProcesses(GetBlockedProcessesThatAreRunning(ProcessesToBlock));
         }
 
-        public void KillProcesses(List<Process> ProcessesToKill)
+        public List<string> GetListOfBlockedProcesses()
         {
-            ProcessKiller killer = new ProcessKiller();
-            var killedProcesses = killer.KillProcesses(ProcessesToKill);
+            return new ProcessesToBlock().Processes;
+        }
+
+        public List<Process> GetBlockedProcessesThatAreRunning(List<string> ProcessesToBlock)
+        {
+            List<Process> RunningProcessesThatAreBlocked = new List<Process>();
+
+            foreach (var process in ProcessesToBlock)
+            {
+                RunningProcessesThatAreBlocked.AddRange(Process.GetProcessesByName(process));
+            }
+            return RunningProcessesThatAreBlocked;
+        }
+
+        public void KillBlockedProcesses(List<Process> ProcessesToKill)
+        {
+            var killedProcesses = new List<string>();
+            foreach (var process in ProcessesToKill)
+            {
+                process.Kill(true);
+                killedProcesses.Add(process.ProcessName);
+            }
 
             foreach (var process in killedProcesses)
             {

@@ -2,9 +2,9 @@
 
 namespace ApplicationLeacherBlocker.ListOfItemsToBlock
 {
-    public static class ProcessesToBlock
+    public class ProcessesToBlock
     {
-        public static List<string> Processes = new List<string> {
+        public  List<string> Processes = new List<string> {
         "steam",
         "bf1",
         "wow64",
