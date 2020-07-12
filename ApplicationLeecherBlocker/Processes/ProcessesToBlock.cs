@@ -14,7 +14,8 @@ namespace ApplicationLeacherBlocker.ListOfItemsToBlock
         "Battle.net",
         "blender",
         "Twitch",
-        "PlanetSide2_x64"
+        "PlanetSide2_x64",
+        "Gw2-64"
         };
     }
 }

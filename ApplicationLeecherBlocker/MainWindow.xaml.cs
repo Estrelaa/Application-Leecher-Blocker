@@ -19,11 +19,12 @@ namespace ApplicationLeacherBlocker
         int TimeToRunMinutes;
         int TimeToRunInSeconds;
         bool CanCloseProgram = true;
+        readonly ProcessesModel ListOfBlockedProcesses;
         public MainWindow()
         {
             InitializeComponent();
             Logging.LogToLoggingTextBoxInUI("Application started");
-            new Json_Serializer().SerializeJson();
+            ListOfBlockedProcesses = new JsonHandler().LoadBlockList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -78,7 +79,7 @@ namespace ApplicationLeacherBlocker
             }
             else
             {
-                new ProcessHandler().ScanAndKillBlockedProcesses();
+                new ProcessHandler().ScanAndKillBlockedProcesses(ListOfBlockedProcesses);
 
                 if (stopWatch.Elapsed.TotalSeconds > TimeToRunInSeconds)
                 {

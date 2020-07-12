@@ -1,4 +1,5 @@
 ﻿using ApplicationLeacherBlocker.ListOfItemsToBlock;
+using ApplicationLeecherBlocker.Json_Parser;
 using ApplicationLeecherBlocker.Processes;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,19 +8,12 @@ namespace ApplicationLeacherBlocker.Processes
 {
     public class ProcessHandler : IProcessHandler
     {
-        public void ScanAndKillBlockedProcesses()
+        public void ScanAndKillBlockedProcesses(ProcessesModel ListOfBlockedProcesses)
         {
-            var ProcessesToBlock = GetListOfBlockedProcesses();
-
-            KillBlockedProcesses(GetBlockedProcessesThatAreRunning(ProcessesToBlock));
+            KillBlockedProcesses(GetListOfBlockedProcessesThatAreRunning(ListOfBlockedProcesses.ProcessesToBeBlocked));
         }
 
-        public List<string> GetListOfBlockedProcesses()
-        {
-            return new ProcessesToBlock().Processes;
-        }
-
-        public List<Process> GetBlockedProcessesThatAreRunning(List<string> ProcessesToBlock)
+        public List<Process> GetListOfBlockedProcessesThatAreRunning(List<string> ProcessesToBlock)
         {
             List<Process> RunningProcessesThatAreBlocked = new List<Process>();
 
