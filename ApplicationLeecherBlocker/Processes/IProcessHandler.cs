@@ -1,8 +1,6 @@
 ﻿using ApplicationLeecherBlocker.Json_Parser;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace ApplicationLeecherBlocker.Processes
 {

@@ -1,5 +1,4 @@
-﻿using ApplicationLeacherBlocker.ListOfItemsToBlock;
-using ApplicationLeecherBlocker.Json_Parser;
+﻿using ApplicationLeecherBlocker.Json_Parser;
 using ApplicationLeecherBlocker.Processes;
 using System.Collections.Generic;
 using System.Diagnostics;
